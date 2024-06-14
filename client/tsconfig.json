@@ -2,9 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "target": "ES2019",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "Node",
     "esModuleInterop": true,
-    "strictNullChecks": true,
+    "strictNullChecks": true
   }
 }
