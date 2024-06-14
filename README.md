@@ -38,7 +38,38 @@ Simplification for the task:
 
 ## Quickstart
 
+### Docker
+
+- Make sure you have **docker** installed.
+
+A Mongo database is provided in a Docker container.
+
+To start it, in the root run:
+
+- `docker compose up -d`
+
+This will start the containers. Run `docker compose ps` to confirm if desired.
+
+### Server
+
 - Make sure you have **node** installed
+
+With Docker now running, start the backend server.
+
+- `cd server`
+- `npx tsx index.ts`
+
+This will do two things:
+
+- Scaffold the initial results collection with `initDatabase()`
+- Provide two endpoints:
+  - `http://localhost:3000/score` - to `GET` the latest game results.
+  - `http://localhost:3000/update-scores` - to `POST` results to.
+
+### Client
+
+- Make sure you have **node** installed
+
 - `cd client`
 - `npm i`
 - `npm start`
@@ -46,6 +77,8 @@ Simplification for the task:
 ## Notes / Talking Points
 
 I opted to tackle Options 1 and 2, as my background is predominantly React.
+
+After finishing 1 and 2, I had a go at Option 3. See **Option 3** notes below.
 
 ### State
 
@@ -88,3 +121,22 @@ Some UI improvements that could be made:
 
 - Potentially separate the select and game stages (as changing the board size immediately wipes the state of play)
 - Highlight the row/column/diagonal with the winning play
+
+### Option 3
+
+It has been a while since I'd done anything with Docker in earnest, so I thought I would give it a go!
+
+I used the `mongo` docker image to host a Mongo database. I've only had light touches of Mongo (having done a little bit more with Firebase) - and at TravelLocal we had Postgres databases running in Docker containers.
+
+I then added a Node server in `/server`, to provide endpoints for the frontend to hit in order to get scores and update them when games finish.
+
+The data fetching is done by the app context. I moved the `setResult` out of `<Game />` up to the context, so I can trigger a fetch from `appContext` when it's updated.
+
+- On load, the latest scores are fetched
+- Then, when a `result` is updated, we post the scores to the API, then fetch
+  - I could consider returning the latest scores on success of the POST
+- `<Sidebar />` then renders the scores
+
+| Get Scores                           | Update Scores                             |
+| ------------------------------------ | ----------------------------------------- |
+| ![Get Scores](/images/getScores.png) | ![UpdateScores](/images/updateScores.png) |
