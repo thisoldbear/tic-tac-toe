@@ -10,9 +10,10 @@ const generateInitialBoard = (maxRows: number) => {
 };
 
 export const Game: FC = () => {
-  const { maxRows } = useContext(AppContext) as AppContextType;
+  const { maxRows, result, setResult } = useContext(
+    AppContext
+  ) as AppContextType;
   const [currentPlayer, setCurrentPlayer] = useState<XorO>("X");
-  const [result, setResult] = useState<Result>(undefined);
   const [board, setBoard] = useState<BoardType>(generateInitialBoard(maxRows));
 
   useEffect(() => {

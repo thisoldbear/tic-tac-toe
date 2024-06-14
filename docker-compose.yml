@@ -1,0 +1,14 @@
+services:
+  tic-tac-toe:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: thinline
+    ports:
+      - 27017:27017
+    volumes:
+      - tic-tac-toe-results:/data/db
+volumes:
+  tic-tac-toe-results:
+    name: "tic-tac-toe-results"
+    driver: local
